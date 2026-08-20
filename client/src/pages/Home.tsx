@@ -29,25 +29,66 @@ const studentQuestions: Question[] = [
   { id: "study", title: "Quanto tempo de Formação/Curso/Estudo em Tecnologia você tem?", options: ["Entre 1 a 4 meses", "Entre 5 a 8 meses", "Mais de 9 meses"] },
   { id: "real", title: "Você já fez algum projeto real para alguém fora do curso?", options: ["Sim", "Não"] },
   { id: "portfolio", title: "O que mais falta no seu portfólio hoje para você se sentir pronto para uma vaga júnior?", options: ["Projetos para clientes reais", "Projetos publicados no ar", "Feedback de alguém da área", "Ainda não sei", "Outro"] },
-  { id: "volunteer", title: "Você toparia fazer um projeto voluntário ou simbólico para ganhar uma prova de portfólio com avaliação real?", options: ["Sim", "Talvez", "Não"] },
+  { id: "volunteer", title: "Desenvolver um site para um cliente de verdade aproxima você do mercado de trabalho. Você aceitaria fazer um projeto por um valor simbólico para enriquecer seu portfólio?", options: ["Sim, com certeza!", "Toparia se tivesse acompanhamento", "Não tenho interesse"] },
   { id: "hours", title: "Quantas horas por semana você teria disponível para isso, além do curso?", options: ["Até 2h", "2h a 5h", "Mais de 5h"] },
-  { id: "delivery", title: "Você se sentiria confortável entregando um projeto direto para um cliente real, ou prefere que alguém revisem antes?", options: ["Confortável direto", "Prefiro que revisem antes"] },
+  { id: "delivery", title: "Você se sentiria confortável entregando um projeto direto para um cliente real, ou prefere que alguém revise antes?", options: ["Confortável direto", "Prefiro que revise antes"] },
 ];
-
 const merchantQuestions: Question[] = [
-  { id: "business", title: "Qual é o tipo do seu negócio?", options: ["Padaria", "Salão/Barbearia", "Costura/Confecção", "Alimentação", "Comércio em geral", "Outro"] },
-  { id: "internet", title: "Qual é a situação atual do seu negócio na internet?", options: ["Não tenho site", "Tenho página simples de links/catálogo", "Já tenho site profissional"] },
-  { id: "barrier", title: "O que mais impede hoje seu negócio de ter um site profissional?", options: ["Acho caro ou complicado", "Falta tempo para organizar conteúdo", "Não encontro profissional de confiança"], conditional: a => a.internet === "Não tenho site" || a.internet === "Tenho página simples de links/catálogo" },
-  { id: "results", title: "O seu site atual traz os resultados e vendas que você esperava?", options: ["Sim", "Não, precisa ser atualizado", "Não sei medir"], conditional: a => a.internet === "Já tenho site profissional" },
-  { id: "trust", title: "Você sabia que uma presença digital organizada pode aumentar a confiança dos clientes?", options: ["Sim, já sabia", "Não sabia", "Concordo totalmente"] },
-  { id: "whatsapp", title: "Quanto tempo você perde no WhatsApp respondendo as mesmas dúvidas?", options: ["Muito tempo! Atrapalha a rotina", "Um tempo razoável", "Pouco tempo"] },
-  { id: "condition", title: "Em qual condição você aceitaria um site criado por um estudante?", options: ["Aceitaria imediatamente", "Com supervisão de professor/profissional", "Vendo trabalhos anteriores", "Com prazo garantido"] },
-  { id: "price", title: "Quanto você imagina que custaria criar um site profissional hoje?", options: ["Até R$ 100", "Entre R$ 100 e R$ 300", "Entre R$ 300 e R$ 800", "Acima de R$ 800", "Não faço ideia"] },
-  { id: "impact", title: "Quanto uma presença digital organizada poderia ajudar a aumentar suas vendas?", options: ["Nada importante", "Pouco importante", "Muito importante", "Indispensável"] },
-  { id: "interest", title: "Você gostaria de ser avisado caso seu negócio seja selecionado para receber um site criado por um estudante?", options: ["Sim, tenho interesse!", "Não tenho interesse no momento"] },
-  { id: "contact", title: "Ótimo! Qual é seu nome e WhatsApp com DDD?", help: "Usaremos apenas para entrar em contato sobre a seleção.", kind: "text", conditional: a => a.interest === "Sim, tenho interesse!" },
+  { 
+    id: "business", 
+    title: "Qual é o ramo do seu negócio?", 
+    options: ["Alimentação / Gastronomia", "Beleza / Estética / Saúde", "Comércio de produtos", "Prestação de serviços", "Confecção / Vestuário", "Outro"] 
+  },
+  { 
+    id: "internet", 
+    title: "Qual é a situação atual do seu negócio na internet?", 
+    options: ["Não tenho site", "Tenho apenas redes sociais / link na bio", "Já tenho um site profissional"] 
+  },
+  { 
+    id: "barrier", 
+    title: "O que mais impede hoje seu negócio de ter um site profissional?", 
+    options: ["Acho caro ou complicado de manter", "Falta tempo para organizar as informações", "Não encontrei um profissional de confiança"], 
+    conditional: a => a.internet === "Não tenho site" || a.internet === "Tenho apenas redes sociais / link na bio" 
+  },
+  { 
+    id: "results", 
+    title: "O seu site atual traz o retorno e os clientes que você esperava?", 
+    options: ["Sim, funciona bem", "Não, precisa ser atualizado", "Não sei medir os resultados"], 
+    conditional: a => a.internet === "Já tenho um site profissional" 
+  },
+  { 
+    id: "whatsapp", 
+    title: "Quanto tempo você gasta no WhatsApp respondendo às mesmas dúvidas de clientes?", 
+    options: ["Muito tempo! Atrapalha a minha rotina", "Um tempo razoável", "Pouco tempo, não me atrapalha"] 
+  },
+  { 
+    id: "impact", 
+    title: "O quanto você acredita que um site bem organizado ajudaria a atrair mais clientes?", 
+    options: ["Ajudaria muito", "Ajudaria um pouco", "Não faria diferença"] 
+  },
+  { 
+    id: "condition", 
+    title: "Em qual condição você aceitaria ter um site criado por um estudante em formação?", 
+    options: ["Com acompanhamento de um professor/mentor", "Analisando projetos anteriores do estudante", "Com prazo de entrega garantido", "Aceitaria sem restrições"] 
+  },
+  { 
+    id: "price", 
+    title: "Quanto você estaria disposto a investir em uma taxa simbólica para cobrir os custos de um site profissional?", 
+    options: ["Até R$ 100", "Entre R$ 100 e R$ 300", "Entre R$ 300 e R$ 500", "Apenas se for 100% gratuito"] 
+  },
+  { 
+    id: "interest", 
+    title: "Você gostaria de inscrever seu negócio para ser selecionado por um estudante do Transforme-se?", 
+    options: ["Sim, tenho interesse!", "Não tenho interesse no momento"] 
+  },
+  { 
+    id: "contact", 
+    title: "Ótimo! Qual é seu nome e WhatsApp com DDD?", 
+    help: "Usaremos este contato apenas para avisar caso seu negócio seja selecionado.", 
+    kind: "text", 
+    conditional: a => a.interest === "Sim, tenho interesse!" 
+  },
 ];
-
 function getStored(): ResponseRecord[] { 
   try { 
     return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); 
