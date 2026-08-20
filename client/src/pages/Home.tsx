@@ -37,54 +37,95 @@ const merchantQuestions: Question[] = [
   { 
     id: "business", 
     title: "Qual é o ramo do seu negócio?", 
-    options: ["Alimentação / Gastronomia", "Beleza / Estética / Saúde", "Comércio de produtos", "Prestação de serviços", "Confecção / Vestuário", "Outro"] 
+    options: [
+      "Alimentação / Gastronomia", 
+      "Beleza / Estética / Saúde", 
+      "Comércio de produtos", 
+      "Prestação de serviços", 
+      "Confecção / Vestuário", 
+      "Outro"
+    ] 
   },
   { 
     id: "internet", 
     title: "Qual é a situação atual do seu negócio na internet?", 
-    options: ["Não tenho site", "Tenho apenas redes sociais / link na bio", "Já tenho um site profissional"] 
+    options: [
+      "Não tenho site", 
+      "Tenho apenas redes sociais / link na bio", 
+      "Já tenho um site profissional"
+    ] 
   },
   { 
     id: "barrier", 
     title: "O que mais impede hoje seu negócio de ter um site profissional?", 
-    options: ["Acho caro ou complicado de manter", "Falta tempo para organizar as informações", "Não encontrei um profissional de confiança"], 
+    options: [
+      "Acho caro ou complicado de manter", 
+      "Falta tempo para organizar as informações", 
+      "Não encontrei um profissional de confiança"
+    ], 
     conditional: a => a.internet === "Não tenho site" || a.internet === "Tenho apenas redes sociais / link na bio" 
   },
   { 
     id: "results", 
     title: "O seu site atual traz o retorno e os clientes que você esperava?", 
-    options: ["Sim, funciona bem", "Não, precisa ser atualizado", "Não sei medir os resultados"], 
+    options: [
+      "Sim, funciona bem", 
+      "Não, precisa ser atualizado", 
+      "Não sei medir os resultados"
+    ], 
     conditional: a => a.internet === "Já tenho um site profissional" 
   },
   { 
     id: "whatsapp", 
     title: "Quanto tempo você gasta no WhatsApp respondendo às mesmas dúvidas de clientes?", 
-    options: ["Muito tempo! Atrapalha a minha rotina", "Um tempo razoável", "Pouco tempo, não me atrapalha"] 
+    options: [
+      "Muito tempo! Atrapalha a minha rotina", 
+      "Um tempo razoável", 
+      "Pouco tempo, não me atrapalha"
+    ] 
   },
   { 
     id: "impact", 
     title: "O quanto você acredita que um site bem organizado ajudaria a atrair mais clientes?", 
-    options: ["Ajudaria muito", "Ajudaria um pouco", "Não faria diferença"] 
+    options: [
+      "Ajudaria muito", 
+      "Ajudaria um pouco", 
+      "Não faria diferença"
+    ] 
   },
   { 
     id: "condition", 
-    title: "Em qual condição você aceitaria ter um site criado por um estudante em formação?", 
-    options: ["Com acompanhamento de um professor/mentor", "Analisando projetos anteriores do estudante", "Com prazo de entrega garantido", "Aceitaria sem restrições"] 
+    title: "O que é mais importante para você aceitar fazer o site do seu negócio através desse projeto?", 
+    options: [
+      "Ver modelos prontos antes de fechar", 
+      "Ter um prazo de entrega garantido", 
+      "Ter suporte básico para aprender a mexer depois", 
+      "Não tenho exigências"
+    ] 
   },
   { 
     id: "price", 
-    title: "Quanto você estaria disposto a investir em uma taxa simbólica para cobrir os custos de um site profissional?", 
-    options: ["Até R$ 100", "Entre R$ 100 e R$ 300", "Entre R$ 300 e R$ 500", "Apenas se for 100% gratuito"] 
+    title: "Quanto você acha que custa para criar e colocar no ar um site profissional hoje?", 
+    options: [
+      "Até R$ 200", 
+      "Entre R$ 200 e R$ 500", 
+      "Entre R$ 500 e R$ 1.500", 
+      "Acima de R$ 1.500", 
+      "Não faço ideia"
+    ] 
   },
   { 
     id: "interest", 
-    title: "Você gostaria de inscrever seu negócio para ser selecionado por um estudante do Transforme-se?", 
-    options: ["Sim, tenho interesse!", "Não tenho interesse no momento"] 
+    title: "Você teria interesse em ter um site para o seu negócio?", 
+    options: [
+      "Sim, tenho interesse!", 
+      "Não tenho interesse no momento"
+    ] 
   },
   { 
     id: "contact", 
     title: "Ótimo! Qual é seu nome e WhatsApp com DDD?", 
-    help: "Usaremos este contato apenas para avisar caso seu negócio seja selecionado.", 
+    help: "Usaremos este contato apenas para entrar em contato com você.", 
     kind: "text", 
     conditional: a => a.interest === "Sim, tenho interesse!" 
   },
