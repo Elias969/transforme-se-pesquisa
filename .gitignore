@@ -1,3 +1,5 @@
+.env.local
+
 # Dependencies
 **/node_modules
 .pnpm-store/
