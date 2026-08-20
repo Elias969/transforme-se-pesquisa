@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, BarChart3, Check, Download, LockKeyhole, Sparkles, X } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
-type Audience = "Aluno" | "Comerciante";
+type Audience = "Aluno" | "Empreendedor";
 type Question = { 
   id: string; 
   title: string; 
@@ -301,9 +301,9 @@ function HomeView({ onChoose, total }: { onChoose: (a: Audience) => void; total:
           <span><strong>Sou Aluno</strong><small>Quero construir portfólio com projetos reais.</small></span>
           <ArrowRight />
         </button>
-        <button className="choice-card merchant" onClick={() => onChoose("Comerciante")}>
+        <button className="choice-card merchant" onClick={() => onChoose("Empreendedor")}>
           <span className="choice-icon">C</span>
-          <span><strong>Sou Comerciante</strong><small>Quero fortalecer a presença digital do meu negócio.</small></span>
+          <span><strong>Sou Empreendedor</strong><small>Quero fortalecer a presença digital do meu negócio.</small></span>
           <ArrowRight />
         </button>
         <div className="privacy-note">Suas respostas ajudam a construir uma solução melhor.</div>
@@ -381,21 +381,21 @@ const adminQuestionCatalog: { audience: Audience; id: string; title: string; opt
   { audience: "Aluno", id: "volunteer", title: "Faria projeto voluntário ou simbólico?", options: ["Sim", "Talvez", "Não"] },
   { audience: "Aluno", id: "hours", title: "Horas semanais disponíveis", options: ["Até 2h", "2h a 5h", "Mais de 5h"] },
   { audience: "Aluno", id: "delivery", title: "Preferência para entrega", options: ["Confortável direto", "Prefiro que revisem antes"] },
-  { audience: "Comerciante", id: "business", title: "Tipo de negócio", options: ["Padaria", "Salão/Barbearia", "Costura/Confecção", "Alimentação", "Comércio em geral", "Outro"] },
-  { audience: "Comerciante", id: "internet", title: "Situação atual na internet", options: ["Não tenho site", "Tenho página simples de links/catálogo", "Já tenho site profissional"] },
-  { audience: "Comerciante", id: "barrier", title: "Principal impedimento para ter site", options: ["Acho caro ou complicado", "Falta tempo para organizar conteúdo", "Não encontro profissional de confiança"] },
-  { audience: "Comerciante", id: "results", title: "Resultados do site atual", options: ["Sim", "Não, precisa ser atualizado", "Não sei medir"] },
-  { audience: "Comerciante", id: "trust", title: "Confiança em presença digital", options: ["Sim, já sabia", "Não sabia", "Concordo totalmente"] },
-  { audience: "Comerciante", id: "whatsapp", title: "Tempo gasto no WhatsApp", options: ["Muito tempo! Atrapalha a rotina", "Um tempo razoável", "Pouco tempo"] },
-  { audience: "Comerciante", id: "condition", title: "Condição para aceitar o site", options: ["Aceitaria imediatamente", "Com supervisão de professor/profissional", "Vendo trabalhos anteriores", "Com prazo garantido"] },
-  { audience: "Comerciante", id: "price", title: "Valor imaginado para um site", options: ["Até R$ 100", "Entre R$ 100 e R$ 300", "Entre R$ 300 e R$ 800", "Acima de R$ 800", "Não faço ideia"] },
-  { audience: "Comerciante", id: "impact", title: "Impacto esperado nas vendas", options: ["Nada importante", "Pouco importante", "Muito importante", "Indispensável"] },
-  { audience: "Comerciante", id: "interest", title: "Interesse em receber contato", options: ["Sim, tenho interesse!", "Não tenho interesse no momento"] },
+  { audience: "Empreendedor", id: "business", title: "Tipo de negócio", options: ["Padaria", "Salão/Barbearia", "Costura/Confecção", "Alimentação", "Comércio em geral", "Outro"] },
+  { audience: "Empreendedor", id: "internet", title: "Situação atual na internet", options: ["Não tenho site", "Tenho página simples de links/catálogo", "Já tenho site profissional"] },
+  { audience: "Empreendedor", id: "barrier", title: "Principal impedimento para ter site", options: ["Acho caro ou complicado", "Falta tempo para organizar conteúdo", "Não encontro profissional de confiança"] },
+  { audience: "Empreendedor", id: "results", title: "Resultados do site atual", options: ["Sim", "Não, precisa ser atualizado", "Não sei medir"] },
+  { audience: "Empreendedor", id: "trust", title: "Confiança em presença digital", options: ["Sim, já sabia", "Não sabia", "Concordo totalmente"] },
+  { audience: "Empreendedor", id: "whatsapp", title: "Tempo gasto no WhatsApp", options: ["Muito tempo! Atrapalha a rotina", "Um tempo razoável", "Pouco tempo"] },
+  { audience: "Empreendedor", id: "condition", title: "Condição para aceitar o site", options: ["Aceitaria imediatamente", "Com supervisão de professor/profissional", "Vendo trabalhos anteriores", "Com prazo garantido"] },
+  { audience: "Empreendedor", id: "price", title: "Valor imaginado para um site", options: ["Até R$ 100", "Entre R$ 100 e R$ 300", "Entre R$ 300 e R$ 800", "Acima de R$ 800", "Não faço ideia"] },
+  { audience: "Empreendedor", id: "impact", title: "Impacto esperado nas vendas", options: ["Nada importante", "Pouco importante", "Muito importante", "Indispensável"] },
+  { audience: "Empreendedor", id: "interest", title: "Interesse em receber contato", options: ["Sim, tenho interesse!", "Não tenho interesse no momento"] },
 ];
 
 function AdminView({ records, onDownload, onBack, onClear }: { records: ResponseRecord[]; onDownload: () => void; onBack: () => void; onClear: () => void }) { 
   const students = records.filter(r => r.audience === "Aluno"); 
-  const merchants = records.filter(r => r.audience === "Comerciante"); 
+  const merchants = records.filter(r => r.audience === "Empreendedor"); 
   const interested = merchants.filter(r => r.answers?.interest === "Sim, tenho interesse!"); 
 
   const top = (group: ResponseRecord[], id: string) => { 
@@ -422,7 +422,7 @@ function AdminView({ records, onDownload, onBack, onClear }: { records: Response
       <div className="metrics">
         <Metric value={records.length} label="respostas totais" />
         <Metric value={students.length} label="alunos" />
-        <Metric value={merchants.length} label="comerciantes" />
+        <Metric value={merchants.length} label="empreendedors" />
         <Metric value={interested.length} label="interessados em contato" />
       </div>
       <div className="admin-grid">
@@ -430,12 +430,12 @@ function AdminView({ records, onDownload, onBack, onClear }: { records: Response
           <span className="kicker">sinal mais forte</span>
           <h2>Respostas em destaque</h2>
           <div className="signal"><span>Alunos · portfólio</span><strong>{top(students, "portfolio")}</strong></div>
-          <div className="signal"><span>Comerciantes · presença digital</span><strong>{top(merchants, "internet")}</strong></div>
-          <div className="signal"><span>Comerciantes · interesse</span><strong>{top(merchants, "interest")}</strong></div>
+          <div className="signal"><span>Empreendedors · presença digital</span><strong>{top(merchants, "internet")}</strong></div>
+          <div className="signal"><span>Empreendedors · interesse</span><strong>{top(merchants, "interest")}</strong></div>
         </div>
         <div className="data-card">
           <div className="card-head">
-            <div><span className="kicker">contatos</span><h2>Comerciantes interessados</h2></div>
+            <div><span className="kicker">contatos</span><h2>Empreendedors interessados</h2></div>
             <span className="count-badge">{interested.length}</span>
           </div>
           {interested.length ? interested.map(r => {

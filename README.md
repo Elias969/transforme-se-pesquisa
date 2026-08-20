@@ -1,12 +1,12 @@
 # Transforme-se — Pesquisa de validação
 
-Aplicação web responsiva para validar uma ideia do programa **Transforme-se (Senac Recife)** com dois fluxos de pesquisa: **Alunos** e **Comerciantes**. A interface reutiliza a linguagem visual da Ponte: tipografia editorial, base clara, coral, amarelo, cartões arredondados e navegação simples.
+Aplicação web responsiva para validar uma ideia do programa **Transforme-se (Senac Recife)** com dois fluxos de pesquisa: **Alunos** e **Empreendedors**. A interface reutiliza a linguagem visual da Ponte: tipografia editorial, base clara, coral, amarelo, cartões arredondados e navegação simples.
 
 ## O que está implementado
 
-A tela inicial permite escolher entre “Sou Aluno” e “Sou Comerciante”. Cada fluxo possui perguntas obrigatórias, avanço por etapas e lógica condicional. No fluxo do aluno, a turma só aparece quando a pessoa responde que participa do Transforme-se. No fluxo do comerciante, as perguntas sobre impedimentos aparecem para quem não possui site ou tem apenas catálogo, enquanto as perguntas sobre resultados aparecem para quem já possui site profissional. O campo de nome e WhatsApp aparece somente quando o comerciante demonstra interesse.
+A tela inicial permite escolher entre “Sou Aluno” e “Sou Empreendedor”. Cada fluxo possui perguntas obrigatórias, avanço por etapas e lógica condicional. No fluxo do aluno, a turma só aparece quando a pessoa responde que participa do Transforme-se. No fluxo do empreendedor, as perguntas sobre impedimentos aparecem para quem não possui site ou tem apenas catálogo, enquanto as perguntas sobre resultados aparecem para quem já possui site profissional. O campo de nome e WhatsApp aparece somente quando o empreendedor demonstra interesse.
 
-As perguntas de múltipla escolha exibem percentuais acumulados de respostas anteriores. A versão imediata salva respostas no `localStorage` do navegador para permitir uma apresentação sem depender de configuração externa. O painel Admin local exibe métricas, respostas mais frequentes, comerciantes interessados e exportação CSV.
+As perguntas de múltipla escolha exibem percentuais acumulados de respostas anteriores. A versão imediata salva respostas no `localStorage` do navegador para permitir uma apresentação sem depender de configuração externa. O painel Admin local exibe métricas, respostas mais frequentes, empreendedors interessados e exportação CSV.
 
 > **Importante:** esta entrega está pronta para demonstração local. O armazenamento atual é local ao navegador e a senha do Admin é uma credencial de demonstração. Para uso real com várias pessoas, siga a seção de migração para banco abaixo.
 
@@ -46,7 +46,7 @@ create extension if not exists pgcrypto;
 
 create table if not exists public.survey_responses (
   id uuid primary key default gen_random_uuid(),
-  audience text not null check (audience in ('Aluno', 'Comerciante')),
+  audience text not null check (audience in ('Aluno', 'Empreendedor')),
   answers jsonb not null default '{}'::jsonb,
   contact_name text,
   contact_whatsapp text,
@@ -63,7 +63,7 @@ alter table public.survey_responses enable row level security;
 create policy "public can insert survey responses"
   on public.survey_responses for insert
   to anon, authenticated
-  with check (audience in ('Aluno', 'Comerciante'));
+  with check (audience in ('Aluno', 'Empreendedor'));
 
 create table if not exists public.admin_users (
   user_id uuid primary key references auth.users(id) on delete cascade,
