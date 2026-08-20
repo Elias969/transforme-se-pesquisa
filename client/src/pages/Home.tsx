@@ -25,7 +25,7 @@ const ADMIN_PASSWORD = "transforme2026";
 
 const studentQuestions: Question[] = [
   { id: "program", title: "Você faz parte do programa Transforme-se?", options: ["Sim", "Não"] },
-  { id: "class", title: "Qual é sua turma/turno do Transforme-se?", options: ["Turma de Ruth", "Turma de Carrasco", "Turma Anicely", "Turma Radássila"], conditional: a => a.program === "Sim" },
+  { id: "class", title: "Qual é sua turma do Transforme-se?", options: ["Turma de Ruth", "Turma de Carrasco", "Turma Anicely", "Turma Radássila", "Outra"], conditional: a => a.program === "Sim" },
   { id: "study", title: "Quanto tempo de Formação/Curso/Estudo em Tecnologia você tem?", options: ["Entre 1 a 4 meses", "Entre 5 a 8 meses", "Mais de 9 meses"] },
   { id: "real", title: "Você já fez algum projeto real para alguém fora do curso?", options: ["Sim", "Não"] },
   { id: "portfolio", title: "O que mais falta no seu portfólio hoje para você se sentir pronto para uma vaga júnior?", options: ["Projetos para clientes reais", "Projetos publicados no ar", "Feedback de alguém da área", "Ainda não sei", "Outro"] },
@@ -374,7 +374,7 @@ function ThanksView({ audience, records, onRestart }: { audience: Audience; reco
 
 const adminQuestionCatalog: { audience: Audience; id: string; title: string; options: string[] }[] = [
   { audience: "Aluno", id: "program", title: "Você faz parte do programa Transforme-se?", options: ["Sim", "Não"] },
-  { audience: "Aluno", id: "class", title: "Turma/turno do Transforme-se", options: ["Turma de Ruth", "Turma de Carrasco", "Turma Anicely", "Turma Radássila"] },
+  { audience: "Aluno", id: "class", title: "Turma do Transforme-se", options: ["Turma de Ruth", "Turma de Carrasco", "Turma Anicely", "Turma Radássila", "Outra"] },
   { audience: "Aluno", id: "study", title: "Tempo de estudo em tecnologia", options: ["Entre 1 a 4 meses", "Entre 5 a 8 meses", "Mais de 9 meses"] },
   { audience: "Aluno", id: "real", title: "Já fez projeto real fora do curso?", options: ["Sim", "Não"] },
   { audience: "Aluno", id: "portfolio", title: "O que mais falta no portfólio", options: ["Projetos para clientes reais", "Projetos publicados no ar", "Feedback de alguém da área", "Ainda não sei", "Outro"] },
