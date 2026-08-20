@@ -270,7 +270,7 @@ export default function Home() {
             <button className="primary full" onClick={enterAdmin}>
               entrar no painel <ArrowRight size={16} />
             </button>
-            <small>Demo local: transforme2026</small>
+            <small>somente para administradores</small>
           </div>
         </div>
       )}
