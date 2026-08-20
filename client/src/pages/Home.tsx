@@ -88,7 +88,7 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Carrega respostas do Supabase ao iniciar
+  // Busca as respostas gravadas no Supabase
   const fetchSupabaseResponses = async () => {
     try {
       const { data, error } = await supabase
@@ -153,36 +153,42 @@ export default function Home() {
     } else { 
       setIsSubmitting(true);
       const contactText = answers["contact"] || "";
-      const newRecord: ResponseRecord = { 
-        id: crypto.randomUUID(), 
-        audience: audience!, 
-        answers, 
-        createdAt: new Date().toISOString(),
-        contact_name: contactText,
-        contact_whatsapp: contactText
-      };
-
-      // Salva no Supabase
+      
+      // Envia para o Supabase
       try {
-        const { error } = await supabase.from('survey_responses').insert([{
-          audience: audience!,
-          answers: answers,
-          contact_name: contactText || null,
-          contact_whatsapp: contactText || null
-        }]);
+        const { data, error } = await supabase
+          .from('survey_responses')
+          .insert([
+            {
+              audience: audience!,
+              answers: answers,
+              contact_name: contactText || null,
+              contact_whatsapp: contactText || null
+            }
+          ])
+          .select();
 
         if (error) {
-          console.error("Erro ao gravar no Supabase:", error);
+          console.error("Erro no Supabase:", error.message);
+          alert(`Erro ao registrar no banco: ${error.message}`);
+        } else if (data && data[0]) {
+          const inserted = data[0];
+          const newRecord: ResponseRecord = {
+            id: inserted.id,
+            audience: inserted.audience,
+            answers: inserted.answers,
+            createdAt: inserted.created_at,
+            contact_name: inserted.contact_name,
+            contact_whatsapp: inserted.contact_whatsapp
+          };
+          setRecords(prev => [newRecord, ...prev]);
         }
       } catch (err) {
-        console.error("Falha ao se conectar ao banco Supabase:", err);
+        console.error("Erro de rede com o Supabase:", err);
+      } finally {
+        setIsSubmitting(false);
+        setMode("thanks"); 
       }
-
-      // Atualiza estado local e salva backup no navegador
-      const updated = [...records, newRecord];
-      setRecords(updated); 
-      setIsSubmitting(false);
-      setMode("thanks"); 
     } 
   }
 
@@ -200,7 +206,7 @@ export default function Home() {
     if (password === ADMIN_PASSWORD) { 
       setAdminOpen(false); 
       setPassword(""); 
-      fetchSupabaseResponses(); // Atualiza dados ao entrar no admin
+      fetchSupabaseResponses(); // Recarrega os dados do Supabase ao logar no Admin
       setMode("admin"); 
     } 
   }
